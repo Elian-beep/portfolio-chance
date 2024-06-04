@@ -1,10 +1,10 @@
 package com.elian.portfolio.api.entity;
 
+import com.elian.portfolio.api.dto.LinkDTO;
+import com.elian.portfolio.api.dto.PersonaDTO;
 import jakarta.persistence.*;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "Persona")
@@ -63,6 +63,11 @@ public class Persona {
 
     public void setLinks(Set<Link> link) {
         this.links = link;
+    }
+    public PersonaDTO toDTO(){
+        List<LinkDTO> linksDto = new ArrayList<>();
+        this.links.forEach(link -> linksDto.add(link.toDto()));
+        return new PersonaDTO(this.nome, this.curriculo, linksDto);
     }
 
     @Override

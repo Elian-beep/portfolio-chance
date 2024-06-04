@@ -1,5 +1,6 @@
 package com.elian.portfolio.api.entity;
 
+import com.elian.portfolio.api.dto.LinkDTO;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -28,6 +29,12 @@ public class Link {
         this.persona = persona;
     }
 
+    public Link(String link, String titulo, String iconUrl) {
+        this.link = link;
+        this.titulo = titulo;
+        this.iconUrl = iconUrl;
+    }
+
     public Link(){}
 
     public UUID getId() {
@@ -43,7 +50,7 @@ public class Link {
     }
 
     public void setTitulo(String titulo) {
-        titulo = titulo;
+        this.titulo = titulo;
     }
 
     public String getLink() {
@@ -68,6 +75,10 @@ public class Link {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public LinkDTO toDto(){
+        return new LinkDTO(this.titulo, this.link, this.iconUrl);
     }
 
     @Override
