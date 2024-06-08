@@ -15,8 +15,6 @@ import java.util.UUID;
 public class PersonaController {
     @Autowired
     PersonaService personaService;
-    @Autowired
-    PersonaRepository personaRepository;
 
     @GetMapping
     public ResponseEntity<PersonaDTO> pegarPersona(){
