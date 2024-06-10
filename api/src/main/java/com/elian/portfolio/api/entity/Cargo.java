@@ -1,6 +1,7 @@
 package com.elian.portfolio.api.entity;
 
 import com.elian.portfolio.api.dto.CargoDTO;
+import com.elian.portfolio.api.dto.CargoWithIdDTO;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -57,5 +58,9 @@ public class Cargo {
     public CargoDTO toDto(){
         CargoDTO cargoDTO = new CargoDTO(this.titulo, this.experiencia.getId());
         return cargoDTO;
+    }
+
+    public CargoWithIdDTO toWithIdDto(){
+        return new CargoWithIdDTO(this.id, this.titulo, this.experiencia.getId());
     }
 }

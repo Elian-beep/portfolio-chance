@@ -1,6 +1,7 @@
 package com.elian.portfolio.api.controller;
 
 import com.elian.portfolio.api.dto.ExperienciaDTO;
+import com.elian.portfolio.api.dto.ExperienciaWithDTO;
 import com.elian.portfolio.api.entity.Experiencia;
 import com.elian.portfolio.api.service.ExperienciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,10 @@ public class ExperienciaController {
     ExperienciaService experienciaService;
 
     @GetMapping
-    public ResponseEntity<Set<ExperienciaDTO>> pegarExperiencias(){
+    public ResponseEntity<Set<ExperienciaWithDTO>> pegarExperiencias(){
         try{
             System.out.println("buscando experiências");
-            Set<ExperienciaDTO> experienciaDTO = new LinkedHashSet<>();
-            experienciaService.getExperiencias().forEach(xp -> experienciaDTO.add(xp.toDto()));
+            Set<ExperienciaWithDTO> experienciaDTO = experienciaService.getExperiencias();
             return ResponseEntity.ok().body(experienciaDTO);
         }catch (Exception e){
             System.out.println("Erro ao buscar experiências: " + e.getMessage());

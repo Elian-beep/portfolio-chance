@@ -1,6 +1,7 @@
 package com.elian.portfolio.api.controller;
 
 import com.elian.portfolio.api.dto.LinkDTO;
+import com.elian.portfolio.api.dto.LinkWithIdDTO;
 import com.elian.portfolio.api.entity.Link;
 import com.elian.portfolio.api.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.nio.file.Path;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -20,10 +19,10 @@ public class LinkController {
     LinkService linkService;
 
     @GetMapping
-    public ResponseEntity<List<LinkDTO>> pegarLinks(){
+    public ResponseEntity<Set<LinkWithIdDTO>> pegarLinks(){
         System.out.println("Buscando links...");
         try{
-            List<LinkDTO> links = linkService.getLinks();
+            Set<LinkWithIdDTO> links = linkService.getLinks();
             return ResponseEntity.ok().body(links);
         }catch (Exception e){
             System.out.println("Erro ao buscar links: " + e.getMessage());

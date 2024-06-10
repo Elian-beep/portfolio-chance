@@ -1,6 +1,7 @@
 package com.elian.portfolio.api.controller;
 
 import com.elian.portfolio.api.dto.CargoDTO;
+import com.elian.portfolio.api.dto.CargoWithIdDTO;
 import com.elian.portfolio.api.dto.ExperienciaDTO;
 import com.elian.portfolio.api.entity.Cargo;
 import com.elian.portfolio.api.service.CargoService;
@@ -18,18 +19,6 @@ import java.util.UUID;
 public class CargoController {
     @Autowired
     CargoService cargoService;
-
-    @GetMapping
-    public ResponseEntity<Set<CargoDTO>> pegarCargos(){
-        System.out.println("Buscando cargos...");
-        try {
-            Set<CargoDTO> cargos = cargoService.getCargos();
-            return ResponseEntity.ok().body(cargos);
-        }catch (Exception e){
-            System.out.println("Erro ao buscar cargos");
-            return ResponseEntity.badRequest().build();
-        }
-    }
 
     @PostMapping
     public ResponseEntity<CargoDTO> cadastrarCargo(@RequestBody @Validated CargoDTO newCargo) {

@@ -1,7 +1,9 @@
 package com.elian.portfolio.api.entity;
 
 import com.elian.portfolio.api.dto.LinkDTO;
+import com.elian.portfolio.api.dto.LinkWithIdDTO;
 import com.elian.portfolio.api.dto.PersonaDTO;
+import com.elian.portfolio.api.dto.PersonaWithIdDTO;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -68,6 +70,12 @@ public class Persona {
         List<LinkDTO> linksDto = new ArrayList<>();
         this.links.forEach(link -> linksDto.add(link.toDto()));
         return new PersonaDTO(this.nome, this.curriculo, linksDto);
+    }
+
+    public PersonaWithIdDTO toWithIdDTO(){
+        Set<LinkWithIdDTO> linksWithIdDTO = new LinkedHashSet<>();
+        this.links.forEach(link -> linksWithIdDTO.add(link.toWithIdDTO()));
+        return new PersonaWithIdDTO(this.id, this.nome, this.curriculo, linksWithIdDTO);
     }
 
     @Override

@@ -1,7 +1,11 @@
 package com.elian.portfolio.api.service;
 
+import com.elian.portfolio.api.dto.CargoWithIdDTO;
 import com.elian.portfolio.api.dto.ExperienciaDTO;
+import com.elian.portfolio.api.dto.ExperienciaWithDTO;
+import com.elian.portfolio.api.entity.Cargo;
 import com.elian.portfolio.api.entity.Experiencia;
+import com.elian.portfolio.api.repository.CargoRepository;
 import com.elian.portfolio.api.repository.ExperienciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,9 +17,13 @@ import java.util.function.Consumer;
 public class ExperienciaService {
     @Autowired
     ExperienciaRepository experienciaRepository;
+    @Autowired
+    CargoRepository cargoRepository;
 
-    public Set<Experiencia> getExperiencias(){
-        return new LinkedHashSet<>(experienciaRepository.findAll());
+    public Set<ExperienciaWithDTO> getExperiencias(){
+        Set<ExperienciaWithDTO> experiencias = new LinkedHashSet<>();
+        experienciaRepository.findAll().forEach(xp -> experiencias.add(xp.toWithDTO()));
+        return experiencias;
     }
 
     public ExperienciaDTO insertExperiencia(Experiencia experiencia){
@@ -23,6 +31,7 @@ public class ExperienciaService {
             experiencia.setId(UUID.randomUUID());
         }
         experienciaRepository.save(experiencia);
+        cargoRepository.saveAll(experiencia.getCargos());
         return experienciaRepository.findById(experiencia.getId()).get().toDto();
     }
 
@@ -43,6 +52,7 @@ public class ExperienciaService {
 
     public void deleteExperiencia(UUID id) throws Exception{
         Optional<Experiencia> ofcExperiecia = findById(id);
+        ofcExperiecia.get().getCargos().forEach(c -> cargoRepository.deleteById(c.getId()));
         if(!ofcExperiecia.isPresent()){
             throw new Exception();
         }

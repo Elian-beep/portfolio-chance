@@ -1,6 +1,7 @@
 package com.elian.portfolio.api.service;
 
 import com.elian.portfolio.api.dto.CargoDTO;
+import com.elian.portfolio.api.dto.CargoWithIdDTO;
 import com.elian.portfolio.api.dto.ExperienciaDTO;
 import com.elian.portfolio.api.entity.Cargo;
 import com.elian.portfolio.api.entity.Experiencia;
@@ -21,12 +22,6 @@ public class CargoService {
     CargoRepository cargoRepository;
     @Autowired
     ExperienciaRepository experienciaRepository;
-
-    public Set<CargoDTO> getCargos(){
-        Set<CargoDTO> cargos = new LinkedHashSet<>();
-        cargoRepository.findAll().forEach(cargo -> cargos.add(cargo.toDto()));
-        return cargos;
-    }
 
     public Cargo insertCargo(CargoDTO cargoDTO) throws Exception {
         Optional<Experiencia> experiencia = findExperiencia(cargoDTO.id_experiencia());

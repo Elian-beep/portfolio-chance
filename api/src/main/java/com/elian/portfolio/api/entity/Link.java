@@ -1,6 +1,7 @@
 package com.elian.portfolio.api.entity;
 
 import com.elian.portfolio.api.dto.LinkDTO;
+import com.elian.portfolio.api.dto.LinkWithIdDTO;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -79,6 +80,10 @@ public class Link {
 
     public LinkDTO toDto(){
         return new LinkDTO(this.titulo, this.link, this.iconUrl);
+    }
+
+    public LinkWithIdDTO toWithIdDTO(){
+        return new LinkWithIdDTO(this.id, this.titulo, this.link, this.iconUrl);
     }
 
     @Override

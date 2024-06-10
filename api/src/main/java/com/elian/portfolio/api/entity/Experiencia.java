@@ -1,7 +1,9 @@
 package com.elian.portfolio.api.entity;
 
 import com.elian.portfolio.api.dto.CargoDTO;
+import com.elian.portfolio.api.dto.CargoWithIdDTO;
 import com.elian.portfolio.api.dto.ExperienciaDTO;
+import com.elian.portfolio.api.dto.ExperienciaWithDTO;
 import jakarta.persistence.*;
 
 import java.util.LinkedHashSet;
@@ -89,6 +91,12 @@ public class Experiencia {
 
     public void setCargos(Set<Cargo> cargos) {
         this.cargos = cargos;
+    }
+
+    public ExperienciaWithDTO toWithDTO(){
+        Set<CargoWithIdDTO> cargoWithIdDTO = new LinkedHashSet<>();
+        this.cargos.forEach(c -> cargoWithIdDTO.add(c.toWithIdDto()));
+        return new ExperienciaWithDTO(this.id, this.empresa, this.inicio, this.termino, this.descricao, cargoWithIdDTO);
     }
 
     public ExperienciaDTO toDto(){

@@ -1,15 +1,13 @@
 package com.elian.portfolio.api.service;
 
 import com.elian.portfolio.api.dto.LinkDTO;
+import com.elian.portfolio.api.dto.LinkWithIdDTO;
 import com.elian.portfolio.api.entity.Link;
 import com.elian.portfolio.api.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 
 @Service
@@ -19,10 +17,10 @@ public class LinkService {
     @Autowired
     PersonaService personaService;
 
-    public List<LinkDTO> getLinks(){
-        List<LinkDTO> linksDto = new ArrayList<>();
-        linkRepository.findAll().forEach(link -> linksDto.add(link.toDto()));
-        return linksDto;
+    public Set<LinkWithIdDTO> getLinks(){
+        Set<LinkWithIdDTO> linksWithIdDto = new LinkedHashSet<>();
+        linkRepository.findAll().forEach(link -> linksWithIdDto.add(link.toWithIdDTO()));
+        return linksWithIdDto;
     }
 
     public Link insertLink(Link link){

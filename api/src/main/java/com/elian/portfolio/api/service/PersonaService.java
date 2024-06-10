@@ -23,12 +23,12 @@ public class PersonaService {
         return persona;
     }
 
-    public Persona updatePersona(Persona newPersona){
+    public PersonaDTO updatePersona(PersonaDTO newPersona){
         Persona oldPersona = getPersona();
-        oldPersona.setNome(newPersona.getNome() != null ? newPersona.getNome() : oldPersona.getNome());
-        oldPersona.setCurriculo(newPersona.getCurriculo() != null ? newPersona.getCurriculo() : oldPersona.getCurriculo());
+        oldPersona.setNome(newPersona.nome() != null ? newPersona.nome() : oldPersona.getNome());
+        oldPersona.setCurriculo(newPersona.curriculo() != null ? newPersona.curriculo() : oldPersona.getCurriculo());
         personaRepository.save(oldPersona);
-        return oldPersona;
+        return oldPersona.toDTO();
     }
 
     public Persona convertEntity(PersonaDTO personaDTO){
